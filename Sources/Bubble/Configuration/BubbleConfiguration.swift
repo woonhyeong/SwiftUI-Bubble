@@ -7,23 +7,6 @@
 
 import SwiftUI
 
-public enum BubbleArrowAlignment: Sendable {
-    case top
-    case bottom
-}
-
-public struct BubbleBorder {
-    let radius: CGFloat
-    let width: CGFloat
-    let color: Color
-    
-    public init(radius: CGFloat = 5, width: CGFloat = 2, color: Color = .black) {
-        self.radius = radius
-        self.width = width
-        self.color = color
-    }
-}
-
 public struct BubbleConfiguration {
     var arrowAlignment: BubbleArrowAlignment = .bottom
     var arrowHeight: CGFloat = 5

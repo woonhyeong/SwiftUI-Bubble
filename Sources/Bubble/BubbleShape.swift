@@ -1,6 +1,6 @@
 //
 //  BubbleShape.swift
-//  HOHOTooltip
+//  SwiftUIBubble
 //
 //  Created by Johnny on 6/29/25.
 //
