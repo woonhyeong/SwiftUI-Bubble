@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-extension View {
+public extension View {
     func bubble(configuration: @escaping (BubbleConfiguration) -> BubbleConfiguration = { $0 }) -> some View {
         let configuration = configuration(BubbleConfiguration())
         
