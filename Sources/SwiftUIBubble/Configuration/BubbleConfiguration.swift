@@ -8,10 +8,10 @@
 import SwiftUI
 
 public struct BubbleConfiguration {
-    public var arrowAlignment: BubbleArrowAlignment = .bottom
-    public var arrowHeight: CGFloat = 5
-    public var innerPadding: EdgeInsets = .init(top: 5, leading: 5, bottom: 5, trailing: 5)
-    public var border: BubbleBorder = BubbleBorder()
+    var arrowAlignment: BubbleArrowAlignment = .bottom
+    var arrowHeight: CGFloat = 5
+    var innerPadding: EdgeInsets = .init(top: 5, leading: 5, bottom: 5, trailing: 5)
+    var border: BubbleBorder = BubbleBorder()
     
     public func arrowAlignment(_ alignment: BubbleArrowAlignment) -> BubbleConfiguration {
         var config = self
