@@ -1,7 +1,7 @@
 # SwiftUI Bubble
 
-<img src="https://img.shields.io/badge/release--1.0.0--blue/>
-<img src="https://img.shields.io/badge/license--MIT--aeeb34/>
+<img src="https://img.shields.io/badge/release-1.0.0-blue"/>
+<img src="https://img.shields.io/badge/license-MIT-aeeb34"/>
 
 This package provides you with an easy way to show tooltips over any SwiftUI view, since Apple does not provide one.
 
