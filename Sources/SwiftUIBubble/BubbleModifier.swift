@@ -17,7 +17,7 @@ import SwiftUI
         ZStack(alignment: .top) {
             content
                 .background(sizeMeasurer)
-                .padding(.top, innerPadding.top + borderWidth)
+                .padding(.top, contentTopPadding)
             
             BubbleShape(
                 arrowAlignment: configuration.arrowAlignment,
@@ -28,13 +28,22 @@ import SwiftUI
             )
             .stroke(borderColor, lineWidth: borderWidth)
             .frame(
-                width: tooltipShapeSize.width,
-                height: tooltipShapeSize.height
+                width: bubbleShapeSize.width,
+                height: bubbleShapeSize.height
             )
         }
     }
     
-    private var tooltipShapeSize: CGSize {
+    private var contentTopPadding: CGFloat {
+        switch configuration.arrowAlignment {
+        case .top:
+            innerPadding.top + borderWidth * 2 + arrowHeight
+        case .bottom:
+            innerPadding.top + borderWidth
+        }
+    }
+    
+    private var bubbleShapeSize: CGSize {
         let width = contentSize.width + innerPadding.leading + innerPadding.trailing + borderWidth * 2
         let height = contentSize.height + innerPadding.top + innerPadding.bottom + arrowHeight + borderWidth * 3
         return CGSize(width: width, height: height)

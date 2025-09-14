@@ -39,7 +39,7 @@ Text("Show Bubble")
 
 *Result:*
 
-<img width="191" height="101" alt="example01" src="https://github.com/user-attachments/assets/bc825d00-1786-4bc5-afa9-d0df01901ff7" />
+![example01](images/example01.png)
 
 ### Using custom configuration
 
@@ -58,6 +58,7 @@ struct SwiftUIView: View {
                 configuration
                     .border(BubbleBorder(width: 3, color: .green))
                     .innerPadding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
+                    .arrowAlignment(.top)
             }
     }
 }
@@ -65,7 +66,7 @@ struct SwiftUIView: View {
 
 *Result:*
 
-<img width="184" height="116" alt="example02" src="https://github.com/user-attachments/assets/a8b87274-ee4a-4a7c-83f6-999bfcb2a2df" />
+![example02](images/example02.png)
 
 
 ## Configuration Reference
