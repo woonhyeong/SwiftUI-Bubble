@@ -49,7 +49,7 @@ Second example shows you how you can add configuration to the bubble for additio
 
 ```swift
 import SwiftUI
-import SwiftUITooltip
+import SwiftUIBubble
 
 struct SwiftUIView: View {
     var body: some View {
