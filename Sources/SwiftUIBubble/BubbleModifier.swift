@@ -13,29 +13,36 @@ import SwiftUI
         self.configuration = configuration
     }
     
+    @ViewBuilder
     public func body(content: Content) -> some View {
+        let bubbleShape = BubbleShape(
+            arrowAlignment: arrowAlignment,
+            arrowHeight: arrowHeight,
+            innerPadding: innerPadding,
+            borderRadius: borderRadius,
+            borderWidth: borderWidth
+        )
+        
         ZStack(alignment: .top) {
+            bubbleShape
+                .stroke(borderColor, lineWidth: borderWidth)
+                .background(
+                    bubbleShape
+                        .fill(configuration.backgroundColor)
+                )
+                .frame(
+                    width: bubbleShapeSize.width,
+                    height: bubbleShapeSize.height
+                )
+            
             content
                 .background(sizeMeasurer)
                 .padding(.top, contentTopPadding)
-            
-            BubbleShape(
-                arrowAlignment: configuration.arrowAlignment,
-                arrowHeight: configuration.arrowHeight,
-                innerPadding: innerPadding,
-                borderRadius: borderRadius,
-                borderWidth: borderWidth
-            )
-            .stroke(borderColor, lineWidth: borderWidth)
-            .frame(
-                width: bubbleShapeSize.width,
-                height: bubbleShapeSize.height
-            )
         }
     }
     
     private var contentTopPadding: CGFloat {
-        switch configuration.arrowAlignment {
+        switch arrowAlignment {
         case .top:
             innerPadding.top + borderWidth * 2 + arrowHeight
         case .bottom:
@@ -74,10 +81,14 @@ import SwiftUI
         configuration.border.color
     }
     
+    private var arrowAlignment: BubbleArrowAlignment {
+        configuration.arrowAlignment
+    }
+    
     private var arrowHeight: CGFloat {
         configuration.arrowHeight
     }
-
+    
 }
 
 // MARK: - Preview
@@ -89,5 +100,6 @@ import SwiftUI
                 .arrowAlignment(.bottom)
                 .arrowHeight(5)
                 .border(BubbleBorder(width: 2))
+                .background(Color.blue)
         }
 }

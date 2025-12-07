@@ -12,6 +12,7 @@ public struct BubbleConfiguration {
     var arrowHeight: CGFloat = 5
     var innerPadding: EdgeInsets = .init(top: 5, leading: 5, bottom: 5, trailing: 5)
     var border: BubbleBorder = BubbleBorder()
+    var backgroundColor: Color = .clear
     
     public func arrowAlignment(_ alignment: BubbleArrowAlignment) -> BubbleConfiguration {
         var config = self
@@ -34,6 +35,12 @@ public struct BubbleConfiguration {
     public func border(_ border: BubbleBorder) -> BubbleConfiguration {
         var config = self
         config.border = border
+        return config
+    }
+    
+    public func background(_ color: Color) -> BubbleConfiguration {
+        var config = self
+        config.backgroundColor = color
         return config
     }
 }
