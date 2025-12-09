@@ -18,6 +18,7 @@ import SwiftUI
         let bubbleShape = BubbleShape(
             arrowAlignment: arrowAlignment,
             arrowHeight: arrowHeight,
+            arrowOffset: arrowOffset,
             innerPadding: innerPadding,
             borderRadius: borderRadius,
             borderWidth: borderWidth
@@ -89,17 +90,35 @@ import SwiftUI
         configuration.arrowHeight
     }
     
+    private var arrowOffset: CGPoint {
+        CGPoint(
+            x: configuration.arrowOffset.x,
+            y: configuration.arrowOffset.y
+        )
+    }
 }
 
 // MARK: - Preview
 
 #Preview {
-    Text("Bubble")
-        .bubble { configuration in
-            configuration
-                .arrowAlignment(.bottom)
-                .arrowHeight(5)
-                .border(BubbleBorder(width: 2))
-                .background(Color.blue)
+    VStack(spacing: .zero) {
+        Text("Bubble")
+            .bubble { configuration in
+                configuration
+                    .arrowAlignment(.bottom)
+                    .arrowHeight(5)
+                    .arrowOffset(x: 30)
+                    .border(BubbleBorder(width: 2))
+                    .background(Color.blue)
+            }
+            .background(
+                Rectangle()
+                    .fill(Color.red)
+            )
+        
+        HStack(spacing: .zero) {
+            Color.yellow
+            Color.green
         }
+    }
 }

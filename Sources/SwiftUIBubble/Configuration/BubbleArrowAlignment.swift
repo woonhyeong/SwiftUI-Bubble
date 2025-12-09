@@ -11,3 +11,13 @@ public enum BubbleArrowAlignment: Sendable {
     case top
     case bottom
 }
+
+extension BubbleArrowAlignment {
+    var horizontal: Bool {
+        self == .top || self == .bottom
+    }
+    
+    var vertical: Bool {
+        false
+    }
+}

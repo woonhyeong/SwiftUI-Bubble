@@ -20,6 +20,7 @@ struct BubbleShape: Shape {
     }
     
     private let arrowAlignment: BubbleArrowAlignment
+    private let arrowOffset: CGPoint
     private let innerPadding: EdgeInsets
     private let borderRadius: CGFloat
     private let borderWidth: CGFloat
@@ -27,12 +28,14 @@ struct BubbleShape: Shape {
     init(
         arrowAlignment: BubbleArrowAlignment,
         arrowHeight: CGFloat,
+        arrowOffset: CGPoint,
         innerPadding: EdgeInsets,
         borderRadius: CGFloat,
         borderWidth: CGFloat
     ) {
         self.arrowAlignment = arrowAlignment
         self.arrowHeight = arrowHeight
+        self.arrowOffset = arrowOffset
         self.innerPadding = innerPadding
         self.borderRadius = borderRadius
         self.borderWidth = borderWidth
@@ -46,11 +49,27 @@ struct BubbleShape: Shape {
         
         let rectWidth = rect.width
         let rectHeight = rect.height
-
+        var offsetX = arrowOffset.x
+        var offsetY = arrowOffset.y // `BubbleArrowAlignment` leading, trailing 추가되면 사용
+        
+        let threshold: CGFloat = 12
+        let offsetXMaxValue: CGFloat = rectWidth / 2 + borderWidth - arrowWidth / 2 - threshold
+        let offsetYMaxValue: CGFloat = rectHeight / 2 + borderWidth - arrowWidth / 2 - threshold
+        
+        if abs(offsetX) > offsetXMaxValue {
+            offsetX = offsetX > 0 ? offsetXMaxValue : -offsetXMaxValue
+        }
+        
+        if abs(offsetX) > offsetYMaxValue {
+            offsetY = offsetY > 0 ? offsetYMaxValue : -offsetYMaxValue
+        }
+        
+        let startPoint = rectWidth * 0.5 + offsetX
+        
         // Arc Top Trailing
-        path.move(to: fit(CGPoint(x: rectWidth * 0.5 + arrowWidth * 0.5, y: arrowHeight + borderWidth * 2)) )
+        path.move(to: fit(CGPoint(x: startPoint + arrowWidth * 0.5, y: arrowHeight + borderWidth)) )
         path.addArc(
-            center: fit(CGPoint(x: rectWidth - borderRadius - borderWidth, y: borderRadius + arrowHeight + borderWidth * 2)),
+            center: fit(CGPoint(x: rectWidth - borderRadius - borderWidth / 2, y: borderRadius + arrowHeight + borderWidth)),
             radius: borderRadius,
             startAngle: arcTopTrailing.start,
             endAngle: arcTopTrailing.end,
@@ -59,7 +78,7 @@ struct BubbleShape: Shape {
         
         // Arc Bottom Trailing
         path.addArc(
-            center: fit(CGPoint(x: rectWidth - borderRadius - borderWidth, y: rectHeight - borderRadius - borderWidth)),
+            center: fit(CGPoint(x: rectWidth - borderRadius - borderWidth / 2, y: rectHeight - borderRadius - borderWidth / 2)),
             radius: borderRadius,
             startAngle: arcBottomTrailing.start,
             endAngle: arcBottomTrailing.end,
@@ -68,7 +87,7 @@ struct BubbleShape: Shape {
         
         // Arc Bottom Leading
         path.addArc(
-            center: fit(CGPoint(x: borderRadius + borderWidth, y: rectHeight - borderRadius - borderWidth)),
+            center: fit(CGPoint(x: borderRadius + borderWidth / 2, y: rectHeight - borderRadius - borderWidth / 2)),
             radius: borderRadius,
             startAngle: arcBottomLeading.start,
             endAngle: arcBottomLeading.end,
@@ -77,20 +96,20 @@ struct BubbleShape: Shape {
         
         // Arc Top Leading
         path.addArc(
-            center: fit(CGPoint(x: borderRadius + borderWidth, y: borderRadius + arrowHeight + borderWidth * 2)),
+            center: fit(CGPoint(x: borderRadius + borderWidth / 2, y: borderRadius + arrowHeight + borderWidth)),
             radius: borderRadius,
             startAngle: arcTopLeading.start,
             endAngle: arcTopLeading.end,
             clockwise: clockwise
         )
         
-        let base = CGPoint(x: arrowWidth * 0.5, y: (arrowHeight + borderWidth * 2))
-        let peak = CGPoint(x: arrowWidth * 0.5 * 0.149, y: arrowHeight * 0.0864 + borderWidth)
-        let curv = CGPoint(x: arrowWidth * 0.5 * 0.600, y: (arrowHeight + borderWidth * 2) * 0.7500)
-        let ctrl = CGPoint(x: arrowWidth * 0.5 * 0.750, y: (arrowHeight + borderWidth * 2))
-        let apex = CGPoint(x: arrowWidth * 0.5 * 0.000, y: -(arrowHeight) * 0.1456 + borderWidth)
+        let base = CGPoint(x: arrowWidth * 0.5, y: (arrowHeight + borderWidth))
+        let peak = CGPoint(x: arrowWidth * 0.5 * 0.149, y: arrowHeight * 0.0864 + borderWidth / 2)
+        let curv = CGPoint(x: arrowWidth * 0.5 * 0.600, y: (arrowHeight + borderWidth) * 0.7500)
+        let ctrl = CGPoint(x: arrowWidth * 0.5 * 0.750, y: (arrowHeight + borderWidth))
+        let apex = CGPoint(x: arrowWidth * 0.5 * 0.000, y: -(arrowHeight) * 0.1456 + borderWidth / 2)
         
-        let midX = rectWidth * 0.5
+        let midX = rectWidth * 0.5 + offsetX
         
         path.addLine(to: fit(CGPoint(x: midX - base.x, y: base.y)))
         
