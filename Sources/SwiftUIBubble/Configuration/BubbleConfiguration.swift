@@ -10,9 +10,10 @@ import SwiftUI
 public struct BubbleConfiguration {
     var arrowAlignment: BubbleArrowAlignment = .bottom
     var arrowHeight: CGFloat = 5
-    var innerPadding: EdgeInsets = .init(top: 5, leading: 5, bottom: 5, trailing: 5)
-    var border: BubbleBorder = BubbleBorder()
+    var arrowOffset: CGPoint = .zero
     var backgroundColor: Color = .clear
+    var border: BubbleBorder = BubbleBorder()
+    var innerPadding: EdgeInsets = .init(top: 5, leading: 5, bottom: 5, trailing: 5)
     
     public func arrowAlignment(_ alignment: BubbleArrowAlignment) -> BubbleConfiguration {
         var config = self
@@ -26,9 +27,15 @@ public struct BubbleConfiguration {
         return config
     }
     
-    public func innerPadding(_ insets: EdgeInsets) -> BubbleConfiguration {
+    public func arrowOffset(x: CGFloat = 0, y: CGFloat = 0) -> BubbleConfiguration {
         var config = self
-        config.innerPadding = insets
+        config.arrowOffset = CGPoint(x: x, y: y)
+        return config
+    }
+    
+    public func background(_ color: Color) -> BubbleConfiguration {
+        var config = self
+        config.backgroundColor = color
         return config
     }
     
@@ -38,9 +45,9 @@ public struct BubbleConfiguration {
         return config
     }
     
-    public func background(_ color: Color) -> BubbleConfiguration {
+    public func innerPadding(_ insets: EdgeInsets) -> BubbleConfiguration {
         var config = self
-        config.backgroundColor = color
+        config.innerPadding = insets
         return config
     }
 }
