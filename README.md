@@ -1,6 +1,6 @@
 # SwiftUI Bubble
 
-<img src="https://img.shields.io/badge/release-1.0.1-blue"/> <img src="https://img.shields.io/badge/license-MIT-aeeb34"/>
+<img src="https://img.shields.io/badge/release-1.0.2-blue"/> <img src="https://img.shields.io/badge/license-MIT-aeeb34"/>
 
 This package provides you with an easy way to show tooltips over any SwiftUI view, since Apple does not provide one.
 
@@ -56,9 +56,9 @@ struct SwiftUIView: View {
         Text("Show Bubble")
             .bubble { configuration in
                 configuration
+                    .arrowAlignment(.top)
                     .border(BubbleBorder(width: 3, color: .green))
                     .innerPadding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
-                    .arrowAlignment(.top)
             }
     }
 }
@@ -77,5 +77,7 @@ Below you can see all the properties that you can set in the configuration.
 | ---------------------- | ------------- | ---------------------------------------------------- |
 | `arrowAlignment`                 | `BubbleArrowAlignment` | Side of view that the tooltip should appear on top or bottom      |
 | `arrowHeight`               | `CGFloat`     | Bubble arrow's height |
+| `arrowOffset`               | `CGPoint`     | Bubble arrow's offset (minimum margin 6px) |
 | `innerPadding`         | `EdgeInsets`     | Padding from the bubble to the view it's attached to                               |
-| `border`          | `BubbleBorder`     | Thickness, Border, CornerRadius of the border                              |
+| `backgroundColor`          | `BubbleBorder`     | Thickness, Border, CornerRadius of the border                              |
+| `border`          | `Color`     | The background color of the bubble.                              |
