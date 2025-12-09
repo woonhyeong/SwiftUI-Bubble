@@ -107,18 +107,9 @@ import SwiftUI
                 configuration
                     .arrowAlignment(.bottom)
                     .arrowHeight(5)
-                    .arrowOffset(x: 30)
+                    .arrowOffset(x: 20)
                     .border(BubbleBorder(width: 2))
                     .background(Color.blue)
             }
-            .background(
-                Rectangle()
-                    .fill(Color.red)
-            )
-        
-        HStack(spacing: .zero) {
-            Color.yellow
-            Color.green
-        }
     }
 }
